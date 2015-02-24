@@ -25,12 +25,12 @@ public class GhostDriverJS {
 public static void main(String []args){
 	
 	//fortimanager
-	GhostDriverJS gs1 = new GhostDriverJS("https://10.2.3.40");
+	//GhostDriverJS gs1 = new GhostDriverJS("https://10.2.3.40");
 	//Fortigate
 	GhostDriverJS gs2 = new GhostDriverJS("https://10.2.3.31");
 
 	//fortianalyzer
-	GhostDriverJS gs3= new GhostDriverJS("https://10.2.3.41/login.htm");
+	//GhostDriverJS gs3= new GhostDriverJS("https://10.2.3.41/login.htm");
 }
 
 	public  GhostDriverJS (String baseUrl) {
@@ -53,6 +53,7 @@ public static void main(String []args){
 
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		driver.get(baseUrl);   
+		
 		long iStart = System.currentTimeMillis(); // start timing
 		
 
@@ -72,6 +73,10 @@ if (driver instanceof JavascriptExecutor) {
 }
 js.executeScript("try_login();");
 		
+js.executeScript("window.history.pushState('ds', 'Title', 'new-url');");
+js.executeScript("var divsToHide = document.getElementsByClassName('top_left'); for(var i = 0; i < divsToHide.length; i++) {divsToHide[i].style.visibility='hidden';}");
+js.executeScript("var divsToHide = document.getElementsByClassName('logo'); for(var i = 0; i < divsToHide.length; i++) {divsToHide[i].style.visibility='hidden';}");
+
 		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		try {
 			FileUtils.copyFile(scrFile, new File("D:\\phantomjs-2.0.0-windows\\sample.jpeg"),true);
